@@ -441,7 +441,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1239771761}
-  - component: {fileID: 1239771760}
+  - component: {fileID: 1239771762}
   m_Layer: 0
   m_Name: Propeller
   m_TagString: Untagged
@@ -449,22 +449,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1239771760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1239771759}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ae40be295051534e850f099a15caa63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
-  bladePrefab: {fileID: 8505926923252337263, guid: 276ab2ddcb477e04091137331889cdf9, type: 3}
-  radius: 5
-  speed: 8
-  direction: 1
 --- !u!4 &1239771761
 Transform:
   m_ObjectHideFlags: 0
@@ -480,6 +464,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1239771762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239771759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 650fad2d311b71d42a00fa7d1756e8d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::rotationScript
+  bladePrefab: {fileID: 8505926923252337263, guid: 276ab2ddcb477e04091137331889cdf9, type: 3}
+  cubes: 20
+  radius: 5
+  speed: 100
+  direction: 1
+  angle: 360
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
