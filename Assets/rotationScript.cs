@@ -20,7 +20,7 @@ public class rotationScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("Ошибка пырефаб не найден!");
+            Debug.Log("Ошибка префаб не найден!");
         }
     }
     void Update()
