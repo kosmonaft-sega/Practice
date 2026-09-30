@@ -11,7 +11,7 @@ public class rotationScript : MonoBehaviour
     [SerializeField,Range(0f,360f)] float angle = 360f;
     int prev_cubes;
 
-    void Awake()
+    private void Awake()
     {
         prev_cubes = cubes;
         if(bladePrefab != null)
@@ -23,17 +23,16 @@ public class rotationScript : MonoBehaviour
             Debug.Log("Ошибка префаб не найден!");
         }
     }
-    void Update()
+    private void Update()
     {
-        var a = direction ? 1f : -1f;
-        transform.Rotate(new Vector3(0f,a*speed*Time.deltaTime,0f));
+        transform.Rotate(new Vector3(0f,(direction ? 1f : -1f)*speed*Time.deltaTime,0f));
         if (prev_cubes != cubes)
         {
             summon_cube();
         }
     }
 
-    void OnValidate()
+    private void OnValidate()
     {
         foreach(Transform child in transform)
         {
@@ -47,7 +46,7 @@ public class rotationScript : MonoBehaviour
         }
     }
 
-    void summon_cube()
+    private void summon_cube()
     {
         int children = transform.childCount;
         GameObject newobject;
