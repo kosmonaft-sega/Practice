@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,8 +7,9 @@ public class Dices : MonoBehaviour
 {
     
     //links to objects
-    [SerializeField] private TMP_Text scoreboard;
+    [SerializeField] private UI UI;
 
+    //setup for dices
     [SerializeField] private Score dicePrefab;
     [SerializeField,Range(1,10)] private int cubes;
 
@@ -72,7 +72,7 @@ public class Dices : MonoBehaviour
             {
                 isThrown = false;
                 print(score);
-                scoreboard.SetText("Score: "+score);
+                UI.Set_Score(score);
             }
         }
     }

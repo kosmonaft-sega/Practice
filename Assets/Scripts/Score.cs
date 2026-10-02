@@ -6,7 +6,6 @@ using UnityEngine;
 public class Score : MonoBehaviour
 {
     public List<int> sides;
-    private Vector3 upside;
     private int multiplier2 = 2;
     private int multiplier3 = 3;
 

@@ -464,7 +464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d58af88240d4263498f058b9c0d62641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dices
-  scoreboard: {fileID: 1014980175}
+  UI: {fileID: 1956485529}
   dicePrefab: {fileID: 7922569109203507066, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
   cubes: 3
   torque: {x: -200, y: 200}
@@ -528,7 +528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Rebind
   Action: {fileID: -5393832060657631026, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  buttonText: {fileID: 1258278119}
+  UI: {fileID: 1956485529}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -854,7 +854,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: space
+  m_text: 'Press to rebind\nKey: space'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1326,8 +1326,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 291, y: -206}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 291, y: -187.27461}
+  m_SizeDelta: {x: 200, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1916224089
 MonoBehaviour:
@@ -1375,7 +1375,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 473115407}
         m_TargetAssemblyTypeName: NewMonoBehaviourScript, Assembly-CSharp
-        m_MethodName: rebind
+        m_MethodName: Rebind
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1435,6 +1435,7 @@ GameObject:
   - component: {fileID: 1956485527}
   - component: {fileID: 1956485526}
   - component: {fileID: 1956485525}
+  - component: {fileID: 1956485529}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -1526,6 +1527,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1956485529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956485524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62ab2b25910edb343b312ab87b0c3423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI
+  scoreboard: {fileID: 1014980175}
+  buttonText: {fileID: 1258278119}
 --- !u!1 &2062041965
 GameObject:
   m_ObjectHideFlags: 0

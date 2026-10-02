@@ -1,16 +1,20 @@
 using UnityEngine;
+using TMPro;
 
 public class UI : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    //links to objects
+    [SerializeField] private TMP_Text scoreboard;
+    [SerializeField] private TMP_Text buttonText;
+
+    public void Set_Score(int score)
     {
-        
+        scoreboard.SetText("Score: "+score);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Set_Key(string key)
     {
-        
+        buttonText.SetText("Press to rebind\nKey: "+key);
     }
 }
