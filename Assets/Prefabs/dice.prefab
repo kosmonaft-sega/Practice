@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 4da8a0ad20b740647b51c9569bf751cd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.0285363
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4da8a0ad20b740647b51c9569bf751cd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.000000054630306
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4da8a0ad20b740647b51c9569bf751cd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.2934668
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4da8a0ad20b740647b51c9569bf751cd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -66,6 +66,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4da8a0ad20b740647b51c9569bf751cd, type: 3}
       insertIndex: -1
       addedObject: {fileID: -3801321133943935600}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4da8a0ad20b740647b51c9569bf751cd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1414624362689129855}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4da8a0ad20b740647b51c9569bf751cd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7922569109203507066}
   m_SourcePrefab: {fileID: 100100000, guid: 4da8a0ad20b740647b51c9569bf751cd, type: 3}
 --- !u!1 &8290100967245899464 stripped
 GameObject:
@@ -120,3 +126,34 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &1414624362689129855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8290100967245899464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.VisualScripting.Core::Unity.VisualScripting.Variables
+  _data:
+    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"diceSides","value":{"$content":[4,2,1,0,6,5,3],"$type":"System.Collections.Generic.List`1[[System.Int32,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"typeHandle":{"Identification":"System.Collections.Generic.List`1[[System.Int32,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
+--- !u!114 &7922569109203507066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8290100967245899464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26cad8a82d277634892e88f5a217ec2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Score
+  sides: 

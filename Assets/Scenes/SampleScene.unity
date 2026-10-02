@@ -154,11 +154,6 @@ Transform:
   - {fileID: 2062041966}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &224441009 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-  m_PrefabInstance: {fileID: 1447776373}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,6 +429,7 @@ GameObject:
   - component: {fileID: 473115404}
   - component: {fileID: 473115406}
   - component: {fileID: 473115405}
+  - component: {fileID: 473115407}
   m_Layer: 0
   m_Name: Dices
   m_TagString: Untagged
@@ -450,13 +446,10 @@ Transform:
   m_GameObject: {fileID: 473115403}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 224441009}
-  - {fileID: 477907246}
-  - {fileID: 519580590}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &473115405
@@ -471,9 +464,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d58af88240d4263498f058b9c0d62641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dices
-  scoreboard: {fileID: 1014980173}
-  button_text: {fileID: 1258278117}
-  Action: {fileID: -5393832060657631026, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  scoreboard: {fileID: 1014980175}
+  dicePrefab: {fileID: 7922569109203507066, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
+  cubes: 3
+  torque: {x: -200, y: 200}
+  forces: {x: 200, y: 500, z: 200}
 --- !u!114 &473115406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515,98 +510,25 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 81e1a5e3-50a6-4b32-8e76-aa39c1bbf932
     m_ActionName: 'Player/Throw[/Keyboard/space]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 473115405}
-        m_TargetAssemblyTypeName: Dices, Assembly-CSharp
-        m_MethodName: Rebind
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 3b6ca6f2-a6e6-4c85-814d-735ba7f7b461
-    m_ActionName: 'Player/rebind[/Keyboard/enter]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!4 &477907246 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-  m_PrefabInstance: {fileID: 1460642540}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &519580590 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-  m_PrefabInstance: {fileID: 533134091}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &533134091
-PrefabInstance:
+--- !u!114 &473115407
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 473115404}
-    m_Modifications:
-    - target: {fileID: 1537069858517559545, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8290100967245899464, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_Name
-      value: dice
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.37336224
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.80147254
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473115403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26e6784f3c0c1884789e4a2e6080e2a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Rebind
+  Action: {fileID: -5393832060657631026, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  buttonText: {fileID: 1258278119}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1012,128 +934,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1258278117}
   m_CullTransparentMesh: 1
---- !u!1001 &1447776373
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 473115404}
-    m_Modifications:
-    - target: {fileID: 1537069858517559545, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8290100967245899464, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_Name
-      value: dice
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.2706616
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.8599997
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.6624691
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.000000044703484
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
---- !u!1001 &1460642540
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 473115404}
-    m_Modifications:
-    - target: {fileID: 1537069858517559545, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8290100967245899464, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_Name
-      value: dice
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.2634869
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.7239982
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8667048035552869490, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
 --- !u!1 &1609052608
 GameObject:
   m_ObjectHideFlags: 0
@@ -1573,9 +1373,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 473115405}
-        m_TargetAssemblyTypeName: Dices, Assembly-CSharp
-        m_MethodName: Rebind
+      - m_Target: {fileID: 473115407}
+        m_TargetAssemblyTypeName: NewMonoBehaviourScript, Assembly-CSharp
+        m_MethodName: rebind
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -6,15 +6,11 @@ using UnityEngine.InputSystem;
 
 public class Dices : MonoBehaviour
 {
-    //Set up for rebind
-    [SerializeField] private InputActionReference Action;
-    private InputActionRebindingExtensions.RebindingOperation rebindOperation;
     
     //links to objects
-    [SerializeField] private GameObject scoreboard;
-    [SerializeField] private GameObject buttonText;
+    [SerializeField] private TMP_Text scoreboard;
 
-    [SerializeField] private GameObject dicePrefab;
+    [SerializeField] private Score dicePrefab;
     [SerializeField,Range(1,10)] private int cubes;
 
     //Force control
@@ -23,74 +19,60 @@ public class Dices : MonoBehaviour
 
 
     //Score counter related
-    private int[] sides = new int[7] {4,2,1,0,6,5,3};
-    private int multiplier2 = 2;
-    private int multiplier3 = 3;
+    private List<int> sides;
     private int score;
 
     //Checking if dice moving
     private bool isThrown = false;
     private int notMovingCubes;
-    private Vector3 upside;
 
     //List of dice objects
-    private List<GameObject> childrenlist = new List<GameObject>();
+    private List<Rigidbody> childrenList = new List<Rigidbody>();
 
     int prev_cubes;
 
+   public int Cubes
+    {
+        get => cubes;
+        set
+        {
+            cubes = value;
+            prev_cubes = cubes;
+            if(dicePrefab != null)
+                Summon_Cube();
+            else
+                Debug.Log("Ошибка префаб не найден!");
+        }
+    }
+
     private void Awake() {
-        prev_cubes = cubes;
-        if(dicePrefab != null)
-        {
-            summon_cube();
-        }
-        else
-        {
-            Debug.Log("Ошибка пырефаб не найден!");
-        }
+        Cubes = cubes;
     }
 
     private void Update()
     {
         if (prev_cubes != cubes)
         {
-            summon_cube();
+            Cubes = cubes;
         }
-        prev_cubes = cubes;
         //
         if (isThrown)
         {
             notMovingCubes = 0;
             score = 0;
-            foreach(GameObject dice in childrenlist)
+            foreach(Rigidbody dice in childrenList)
             {
-                if (dice.GetComponent<Rigidbody>().linearVelocity.Equals(Vector3.zero) && dice.GetComponent<Rigidbody>().angularVelocity.Equals(Vector3.zero))
+                if (dice.linearVelocity.Equals(Vector3.zero) && dice.angularVelocity.Equals(Vector3.zero))
                 {
                     notMovingCubes++;
-                    upside = dice.transform.InverseTransformDirection(Vector3.up);
-                    score+=sides[(int)
-                        (Math.Round(upside.x)
-                        +Math.Round(upside.y*multiplier2)
-                        +Math.Round(upside.z*multiplier3)
-                        +multiplier3)];
+                    score += dicePrefab.Score_Count(dice.transform.InverseTransformDirection(Vector3.up));
                 }
             }
-            if (notMovingCubes == childrenlist.Count)
+            if (notMovingCubes == childrenList.Count)
             {
                 isThrown = false;
                 print(score);
-                scoreboard.GetComponent<TMP_Text>().SetText("Score: "+score);
-            }
-        }
-
-        //If action got rebind
-        if (rebindOperation != null)
-        {
-            if (rebindOperation.completed)
-            {
-                Action.action.Enable();
-                buttonText.GetComponent<TMP_Text>().SetText(rebindOperation.action.bindings[0].effectivePath.Replace("<Keyboard>/", ""));
-                rebindOperation = null;
+                scoreboard.SetText("Score: "+score);
             }
         }
     }
@@ -99,15 +81,13 @@ public class Dices : MonoBehaviour
     {
         if (context.started && !isThrown)
         {
-            Rigidbody rd;
-            foreach(GameObject dice in childrenlist)
+            foreach(Rigidbody dice in childrenList)
             {
-                rd = dice.GetComponent<Rigidbody>();
-                rd.AddForce(new Vector3(
+                dice.AddForce(new Vector3(
                     UnityEngine.Random.Range(-forces.z, forces.z),
                     UnityEngine.Random.Range(forces.x, forces.y),
                     UnityEngine.Random.Range(-forces.z, forces.z)),ForceMode.Force);
-                rd.AddTorque(new Vector3(
+                dice.AddTorque(new Vector3(
                     UnityEngine.Random.Range(torque.x, torque.y),
                     UnityEngine.Random.Range(torque.x, torque.y),
                     UnityEngine.Random.Range(torque.x, torque.y)),ForceMode.Force);
@@ -116,36 +96,27 @@ public class Dices : MonoBehaviour
         if (context.canceled)
             isThrown = true;
     }
-
-    public void Rebind()
-    {
-        Action.action.Disable();
-        rebindOperation = Action.action.PerformInteractiveRebinding()
-            .WithControlsExcluding("Mouse")
-            .WithCancelingThrough("<Keyboard>/escape")
-            .OnMatchWaitForAnother(0.2f)
-            .Start();
-    }
     
-    private void summon_cube()
+    private void Summon_Cube()
     {
-        int newdices = cubes-childrenlist.Count;
-        GameObject newobject;
+        int newdices = cubes-childrenList.Count;
         if(newdices>0)
         {
+            GameObject newobject;
             for(int i=0; i<newdices; i++)
             {
-                newobject = Instantiate(dicePrefab, transform.position, Quaternion.identity, transform);
-                childrenlist.Add(newobject);
+                newobject = Instantiate(dicePrefab.gameObject, transform.position, Quaternion.identity, transform);
+                childrenList.Add(newobject.GetComponent<Rigidbody>());
             }
         }
         else if(newdices<0)
         {
+            Rigidbody rd;
             for(int i=0; i<Math.Abs(newdices); i++)
             {
-                newobject = childrenlist[i];
-                childrenlist.Remove(newobject);
-                Destroy(newobject);
+                rd = childrenList[i];
+                childrenList.Remove(rd);
+                Destroy(rd.gameObject);
             }
         }
     }
