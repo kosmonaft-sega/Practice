@@ -139,9 +139,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.VisualScripting.Core::Unity.VisualScripting.Variables
   _data:
-    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"diceSides","value":{"$content":[4,2,1,0,6,5,3],"$type":"System.Collections.Generic.List`1[[System.Int32,
-      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"typeHandle":{"Identification":"System.Collections.Generic.List`1[[System.Int32,
-      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"dirs","value":{"$content":[{"x":-1.0,"y":0.0,"z":0.0},{"x":0.0,"y":-1.0,"z":0.0},{"x":0.0,"y":0.0,"z":1.0},{"x":0.0,"y":0.0,"z":-1.0},{"x":0.0,"y":1.0,"z":0.0},{"x":1.0,"y":0.0,"z":0.0}],"$type":"System.Collections.Generic.List`1[[UnityEngine.Vector3,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"typeHandle":{"Identification":"System.Collections.Generic.List`1[[UnityEngine.Vector3,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
     _objectReferences: []
 --- !u!114 &7922569109203507066
@@ -156,4 +156,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26cad8a82d277634892e88f5a217ec2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Score
-  sides: 
+  rd: {fileID: 1537069858517559545}

@@ -465,7 +465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dices
   UI: {fileID: 1956485529}
-  dicePrefab: {fileID: 7922569109203507066, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
+  dicePrefab: {fileID: 8290100967245899464, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
   cubes: 3
   torque: {x: -200, y: 200}
   forces: {x: 200, y: 500, z: 200}
@@ -612,7 +612,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -284, y: -204.9}
+  m_AnchoredPosition: {x: -330, y: 207}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1014980175
@@ -1326,7 +1326,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 291, y: -187.27461}
+  m_AnchoredPosition: {x: 329, y: 195}
   m_SizeDelta: {x: 200, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1916224089
