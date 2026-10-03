@@ -10,7 +10,7 @@ public class Dices : MonoBehaviour
     [SerializeField] private UI UI;
 
     //setup for dices
-    [SerializeField] private Score dicePrefab;
+    [SerializeField] private GameObject dicePrefab;
     [SerializeField,Range(1,10)] private int cubes;
 
     //Force control
@@ -19,7 +19,6 @@ public class Dices : MonoBehaviour
 
 
     //Score counter related
-    private List<int> sides;
     private int score;
 
     //Checking if dice moving
@@ -27,7 +26,7 @@ public class Dices : MonoBehaviour
     private int notMovingCubes;
 
     //List of dice objects
-    private List<Rigidbody> childrenList = new List<Rigidbody>();
+    private List<Score> childrenList = new List<Score>();
 
     int prev_cubes;
 
@@ -60,12 +59,12 @@ public class Dices : MonoBehaviour
         {
             notMovingCubes = 0;
             score = 0;
-            foreach(Rigidbody dice in childrenList)
+            foreach(Score dice in childrenList)
             {
-                if (dice.linearVelocity.Equals(Vector3.zero) && dice.angularVelocity.Equals(Vector3.zero))
+                if (dice.rd.linearVelocity.sqrMagnitude < 0.01f && dice.rd.angularVelocity.sqrMagnitude < 0.01f)
                 {
                     notMovingCubes++;
-                    score += dicePrefab.Score_Count(dice.transform.InverseTransformDirection(Vector3.up));
+                    score += dice.Score_Count(dice.transform.InverseTransformDirection(Vector3.up));
                 }
             }
             if (notMovingCubes == childrenList.Count)
@@ -81,13 +80,13 @@ public class Dices : MonoBehaviour
     {
         if (context.started && !isThrown)
         {
-            foreach(Rigidbody dice in childrenList)
+            foreach(Score dice in childrenList)
             {
-                dice.AddForce(new Vector3(
+                dice.rd.AddForce(new Vector3(
                     UnityEngine.Random.Range(-forces.z, forces.z),
                     UnityEngine.Random.Range(forces.x, forces.y),
                     UnityEngine.Random.Range(-forces.z, forces.z)),ForceMode.Force);
-                dice.AddTorque(new Vector3(
+                dice.rd.AddTorque(new Vector3(
                     UnityEngine.Random.Range(torque.x, torque.y),
                     UnityEngine.Random.Range(torque.x, torque.y),
                     UnityEngine.Random.Range(torque.x, torque.y)),ForceMode.Force);
@@ -99,24 +98,25 @@ public class Dices : MonoBehaviour
     
     private void Summon_Cube()
     {
-        int newdices = cubes-childrenList.Count;
-        if(newdices>0)
+        int dicesCount = childrenList.Count;
+        int newDices = cubes - dicesCount;
+        if(newDices>0)
         {
             GameObject newobject;
-            for(int i=0; i<newdices; i++)
+            for(int i=0; i<newDices; i++)
             {
                 newobject = Instantiate(dicePrefab.gameObject, transform.position, Quaternion.identity, transform);
-                childrenList.Add(newobject.GetComponent<Rigidbody>());
+                childrenList.Add(newobject.GetComponent<Score>());
             }
         }
-        else if(newdices<0)
+        else if(newDices<0)
         {
-            Rigidbody rd;
-            for(int i=0; i<Math.Abs(newdices); i++)
+            Score newobject;
+            for(int i=0; i<Math.Abs(newDices); i++)
             {
-                rd = childrenList[i];
-                childrenList.Remove(rd);
-                Destroy(rd.gameObject);
+                newobject = childrenList[dicesCount-i-1];
+                childrenList.Remove(newobject);
+                Destroy(newobject.gameObject);
             }
         }
     }
