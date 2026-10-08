@@ -1,15 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using UnityEngine;
 
 public class Dices : MonoBehaviour
 {
-    //link to data
-    [SerializeField] private Database database;
-    
     //links to objects
-    [SerializeField] private UI UI;
+    private Database database;
+    private UI UI;
 
     //setup for dices
     [SerializeField] private GameObject dicePrefab;
@@ -21,19 +20,28 @@ public class Dices : MonoBehaviour
     //List of dice objects
     private List<Score> childrenList = new List<Score>();
 
-    private void Awake() {
-        if(database == null)
-            Debug.LogError("Ошибка ссылка на базу данных не найдена");
-
-        if(UI == null)
-            Debug.LogError("Ошибка ссылка на UI не найдена");
+    public void Init(Database _database, UI _UI)
+    {
+        database = _database;
+        UI = _UI;
+        
+        database.diceThrowEvent += Throw;
 
         if(dicePrefab != null)
             Summon_Cube();
         else
             Debug.LogError("Ошибка префаб не найден!");
+    }
 
-        database.diceThrowEvent += Throw;
+    private void OnEnable()
+    {
+        if(database != null)
+            database.diceThrowEvent += Throw;
+    }
+    private void OnDisable()
+    {
+        if(database != null)
+            database.diceThrowEvent -= Throw;
     }
 
     public void DiceThrowStart()

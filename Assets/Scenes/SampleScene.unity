@@ -846,7 +846,6 @@ GameObject:
   - component: {fileID: 473115404}
   - component: {fileID: 473115406}
   - component: {fileID: 473115405}
-  - component: {fileID: 473115407}
   m_Layer: 0
   m_Name: Dices
   m_TagString: Untagged
@@ -881,8 +880,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d58af88240d4263498f058b9c0d62641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dices
-  database: {fileID: 244832682}
-  UI: {fileID: 1956485529}
   dicePrefab: {fileID: 8290100967245899464, guid: b89acf06a29bd5e4fb9696da2895f622, type: 3}
   torque: {x: -200, y: 200}
   forces: {x: 200, y: 500, z: 200}
@@ -932,20 +929,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &473115407
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 473115403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26e6784f3c0c1884789e4a2e6080e2a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Rebind
-  Action: {fileID: -5393832060657631026, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  UI: {fileID: 1956485529}
 --- !u!1 &522369838
 GameObject:
   m_ObjectHideFlags: 0
@@ -2107,6 +2090,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 995629650}
   m_CullTransparentMesh: 1
+--- !u!1 &1007526718
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1007526720}
+  - component: {fileID: 1007526719}
+  m_Layer: 0
+  m_Name: Initializer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1007526719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007526718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cdf8d2f18e6b7c499cb92d9b394a1fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Initializer
+  database: {fileID: 244832682}
+  UI: {fileID: 1956485529}
+  Dices: {fileID: 473115405}
+--- !u!4 &1007526720
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007526718}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.25366, y: -0, z: 6.93702}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1014980173
 GameObject:
   m_ObjectHideFlags: 0
@@ -3462,7 +3492,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -4345,7 +4375,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62ab2b25910edb343b312ab87b0c3423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI
-  database: {fileID: 244832682}
   scoreboard: {fileID: 1014980175}
   buttonText: {fileID: 1258278119}
   cubesField: {fileID: 1142997679}
@@ -4596,12 +4625,13 @@ Rigidbody:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 244832683}
-  - {fileID: 1956485528}
   - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}
-  - {fileID: 1609052612}
-  - {fileID: 473115404}
   - {fileID: 1647832847}
+  - {fileID: 244832683}
+  - {fileID: 1007526720}
+  - {fileID: 1956485528}
+  - {fileID: 473115404}
+  - {fileID: 1609052612}
   - {fileID: 29432492}

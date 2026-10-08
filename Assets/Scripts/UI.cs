@@ -3,10 +3,8 @@ using TMPro;
 
 public class UI : MonoBehaviour
 {
-    //link to data
-    [SerializeField] private Database database;
-
     //links to objects
+    private Database database;
     [SerializeField] private TMP_Text scoreboard;
     [SerializeField] private TMP_Text buttonText;
 
@@ -19,17 +17,36 @@ public class UI : MonoBehaviour
     private bool isWinScoreSet = false;
     private bool isDrawScoreSet = false;
 
+    public void Init(Database _database)
+    {
+        database = _database;
 
-    private void Awake() {
+        database.diceThrowEvent += WinScoreChange;
+        database.diceThrowEvent += DrawScoreChange;
+        database.diceThrowEvent += LoseScoreChange;
+    }
+
+    private void OnEnable()
+    {
         if(database != null)
         {
             database.diceThrowEvent += WinScoreChange;
             database.diceThrowEvent += DrawScoreChange;
             database.diceThrowEvent += LoseScoreChange;
         }
-        else
-            Debug.LogError("Ошибка ссылка на базу данных не найдена");
+    }
 
+    private void OnDisable()
+    {
+        if(database != null)
+        {
+            database.diceThrowEvent -= WinScoreChange;
+            database.diceThrowEvent -= DrawScoreChange;
+            database.diceThrowEvent -= LoseScoreChange;
+        }
+    }
+
+    private void Awake() {
         if(scoreboard == null)
             Debug.LogError("Ошибка ссылка на scoreboard не найдена");
 
@@ -55,16 +72,7 @@ public class UI : MonoBehaviour
             Debug.LogError("Ошибка ссылка на поле drawScoreField не найдена");
 
         Set_Score(database.score);
-    }
-
-    private void OnDisable()
-    {
-        if(database != null)
-        {
-            database.diceThrowEvent -= WinScoreChange;
-            database.diceThrowEvent -= DrawScoreChange;
-            database.diceThrowEvent -= LoseScoreChange;
-        }
+        LoseScoreChange();
     }
 
     public void Set_Score(int score)
@@ -73,6 +81,9 @@ public class UI : MonoBehaviour
 
         isWinScoreSet = false;
         isDrawScoreSet = false;
+
+        winScoreField.interactable = true;
+        drawScoreField.interactable = true;
     }
 
     public void Set_Key(string key)
@@ -98,6 +109,7 @@ public class UI : MonoBehaviour
 
     private void WinScoreChange()
     {
+        winScoreField.interactable = false;
         string scoreText = winScoreField.text;
         if(isWinScoreSet)
             database.winScore = int.Parse(scoreText);
@@ -111,6 +123,7 @@ public class UI : MonoBehaviour
 
     private void DrawScoreChange()
     {
+        drawScoreField.interactable = false;
         string scoreText = drawScoreField.text;
         if(isDrawScoreSet)
             database.drawScore = int.Parse(scoreText);
