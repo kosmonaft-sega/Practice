@@ -1,12 +1,16 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
     //links to objects
-    private Database database;
+    [SerializeField] private Database database;
+
+    [SerializeField] private Button throwButton;
+
     [SerializeField] private TMP_Text scoreboard;
-    [SerializeField] private TMP_Text buttonText;
+    [SerializeField] private TMP_Text winOrLose;
 
     [SerializeField] private TMP_InputField cubesField;
 
@@ -14,44 +18,26 @@ public class UI : MonoBehaviour
     [SerializeField] private TMP_InputField drawScoreField;
     [SerializeField] private TMP_InputField loseScoreField;
 
-    private bool isWinScoreSet = false;
-    private bool isDrawScoreSet = false;
+    [SerializeField] private Toggle winToggle;
+    [SerializeField] private Toggle drawToggle;
 
-    public void Init(Database _database)
-    {
-        database = _database;
-
-        database.diceThrowEvent += WinScoreChange;
-        database.diceThrowEvent += DrawScoreChange;
-        database.diceThrowEvent += LoseScoreChange;
-    }
-
-    private void OnEnable()
+    private void AddToEvent()
     {
         if(database != null)
         {
+            database.diceThrowEvent += EraseWinStatus;
             database.diceThrowEvent += WinScoreChange;
             database.diceThrowEvent += DrawScoreChange;
             database.diceThrowEvent += LoseScoreChange;
-        }
-    }
 
-    private void OnDisable()
-    {
-        if(database != null)
-        {
-            database.diceThrowEvent -= WinScoreChange;
-            database.diceThrowEvent -= DrawScoreChange;
-            database.diceThrowEvent -= LoseScoreChange;
+            database.diceThrowEndEvent += SetScore;
         }
     }
 
     private void Awake() {
+        AddToEvent();
         if(scoreboard == null)
             Debug.LogError("Ошибка ссылка на scoreboard не найдена");
-
-        if(buttonText == null)
-            Debug.LogError("Ошибка ссылка на текст кнопки не найдена");
 
         if(cubesField != null)
         {
@@ -61,45 +47,61 @@ public class UI : MonoBehaviour
         else
             Debug.LogError("Ошибка ссылка на поле cubesField не найдена");
 
-        if(winScoreField != null)
-            winScoreField.onEndEdit.AddListener(SetWinScore);
+        if(winToggle != null)
+            winToggle.onValueChanged.AddListener(SetWinScore);
         else
-            Debug.LogError("Ошибка ссылка на поле winScoreField не найдена");
+            Debug.LogError("Ошибка ссылка на поле winToggle не найдена");
 
-        if(drawScoreField != null)
-            drawScoreField.onEndEdit.AddListener(SetDrawScore);
+        if(drawToggle != null)
+            drawToggle.onValueChanged.AddListener(SetDrawScore);
         else
-            Debug.LogError("Ошибка ссылка на поле drawScoreField не найдена");
+            Debug.LogError("Ошибка ссылка на поле drawToggle не найдена");
 
-        Set_Score(database.score);
-        LoseScoreChange();
+        if(throwButton != null)
+            throwButton.onClick.AddListener(database.DiceThrowStart);
+        else
+            Debug.LogError("Ошибка throwButton не найдена!");
     }
 
-    public void Set_Score(int score)
+    private void OnDestroy()
     {
-        scoreboard.SetText($"Score: {score}");
+        if(database != null)
+        {
+            database.diceThrowEvent -= EraseWinStatus;
+            database.diceThrowEvent -= WinScoreChange;
+            database.diceThrowEvent -= DrawScoreChange;
+            database.diceThrowEvent -= LoseScoreChange;
 
-        isWinScoreSet = false;
-        isDrawScoreSet = false;
-
-        winScoreField.interactable = true;
-        drawScoreField.interactable = true;
+            database.diceThrowEndEvent -= SetScore;
+        }
     }
 
-    public void Set_Key(string key)
+    private void SetScore()
     {
-        buttonText.SetText("Press to rebind\nKey: "+key);
+        scoreboard.SetText($"Score: {database.score}");
+        
+        winOrLose.SetText($"{database.endGameResult}");
+
+        winToggle.interactable = true;
+        drawToggle.interactable = true;
+        winScoreField.interactable = winToggle.isOn;
+        drawScoreField.interactable = drawToggle.isOn;
     }
 
-    private void CubesChange(string score)
+    private void CubesChange(string value)
     {
-        if(score != "")
-            database.cubes = int.Parse(score);
+        if(value != "")
+            database.cubes = int.Parse(value);
         else
         {
             cubesField.text = "1";
             database.cubes = 1;
         }
+    }
+
+    private void EraseWinStatus()
+    {
+        winOrLose.text = "";
     }
 
     private void LoseScoreChange()
@@ -109,9 +111,10 @@ public class UI : MonoBehaviour
 
     private void WinScoreChange()
     {
+        winToggle.interactable = false;
         winScoreField.interactable = false;
         string scoreText = winScoreField.text;
-        if(isWinScoreSet)
+        if(winToggle.isOn)
             database.winScore = int.Parse(scoreText);
         else
         {
@@ -123,19 +126,19 @@ public class UI : MonoBehaviour
 
     private void DrawScoreChange()
     {
+        drawToggle.interactable = false;
         drawScoreField.interactable = false;
         string scoreText = drawScoreField.text;
-        if(isDrawScoreSet)
+        if(drawToggle.isOn)
             database.drawScore = int.Parse(scoreText);
         else
         {
-            int drawScore = Random.Range(database.cubes,database.winScore);
+            int drawScore = Random.Range(database.cubes+1,database.winScore);
             drawScoreField.text = $"{drawScore}";
             database.drawScore = drawScore;
         }
     }
 
-    public void SetWinScore(string text) => isWinScoreSet = true;
-
-    public void SetDrawScore(string text) => isDrawScoreSet = true;
+    public void SetWinScore(bool value) => winScoreField.interactable = value;
+    public void SetDrawScore(bool value) => drawScoreField.interactable = value;
 }

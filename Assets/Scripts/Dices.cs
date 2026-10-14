@@ -1,14 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.Common;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Dices : MonoBehaviour
 {
     //links to objects
-    private Database database;
-    private UI UI;
+    [SerializeField] private Database database;
+    [SerializeField] private GameObject spawner;
 
     //setup for dices
     [SerializeField] private GameObject dicePrefab;
@@ -20,35 +20,26 @@ public class Dices : MonoBehaviour
     //List of dice objects
     private List<Score> childrenList = new List<Score>();
 
-    public void Init(Database _database, UI _UI)
-    {
-        database = _database;
-        UI = _UI;
-        
-        database.diceThrowEvent += Throw;
-
-        if(dicePrefab != null)
-            Summon_Cube();
-        else
-            Debug.LogError("Ошибка префаб не найден!");
-    }
-
-    private void OnEnable()
+    private void Awake()
     {
         if(database != null)
+        {
             database.diceThrowEvent += Throw;
-    }
-    private void OnDisable()
-    {
-        if(database != null)
-            database.diceThrowEvent -= Throw;
+
+            database.diceThrowEndEvent += GameResult;
+        }
+        else
+            Debug.LogError("Ссылка на Database не найдена!");
+
+        if(dicePrefab != null && spawner != null)
+            SummonCube();
+        else
+            Debug.LogError("Ошибка префаб или спавнер не найден!");
     }
 
-    public void DiceThrowStart()
+    private void OnDestroy()
     {
-        if(database.isThrown)
-            return;
-        database.DiceThrowStart();
+        database.diceThrowEvent -= Throw;
     }
 
     private void Throw()
@@ -56,16 +47,18 @@ public class Dices : MonoBehaviour
         StartCoroutine(IsCubesThrown());
     }
     
-    public void Summon_Cube()
+    private void SummonCube()
     {
         int dicesCount = childrenList.Count;
         int newDices = database.cubes - dicesCount;
         if(newDices>0)
         {
+            Vector3 spawnAngle = new Vector3(0,360/newDices,0);
             GameObject newobject;
             for(int i=0; i<newDices; i++)
             {
-                newobject = Instantiate(dicePrefab.gameObject, transform.position, Quaternion.identity, transform);
+                spawner.transform.localEulerAngles = spawnAngle*i;
+                newobject = Instantiate(dicePrefab.gameObject, spawner.transform.forward*5, Quaternion.identity, transform);
                 childrenList.Add(newobject.GetComponent<Score>());
             }
         }   
@@ -81,16 +74,13 @@ public class Dices : MonoBehaviour
         }
     }
 
-    public IEnumerator IsCubesThrown()
+    private IEnumerator IsCubesThrown()
     {
 
         int childrenCount = childrenList.Count;
         if(childrenCount != database.cubes)
         {
-            Summon_Cube();
-
-            if(childrenCount < database.cubes)
-                yield return new WaitForSeconds(1.75f);
+            SummonCube();
         }
 
         yield return new WaitForSeconds(0.25f);
@@ -124,20 +114,22 @@ public class Dices : MonoBehaviour
                 database.score += dice.Score_Count(dice.transform.InverseTransformDirection(Vector3.up));
             }
             if (notMovingCubes == childrenList.Count)
-            {
-                database.isThrown = false;
-                print(database.score);
-                UI.Set_Score(database.score);
-                if(database.score>=database.winScore)
-                    print("Win");
-                else if(database.score>=database.drawScore)
-                    print("Draw");
-                else
-                    print("Lose");
-            }
+                database.DiceThrowEnd();
 
             yield return new WaitForSeconds(0.05f);
         }
+    }
+
+    private void GameResult()
+    {
+        print(database.score);
+
+        if(database.score>=database.winScore)
+            database.endGameResult = Database.EndGame.Win;
+        else if(database.score>=database.drawScore)
+            database.endGameResult = Database.EndGame.Draw;
+        else
+            database.endGameResult = Database.EndGame.Lose;
     }
 
 }

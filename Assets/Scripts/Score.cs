@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Score : MonoBehaviour
@@ -7,11 +6,7 @@ public class Score : MonoBehaviour
     //links to components
     public Rigidbody rd;
     
-    private List<Vector3> dirs;
-
-    private void Awake() {
-        dirs = (List<Vector3>)transform.GetComponent<Variables>().declarations.GetDeclaration("dirs").value;
-    }
+    [SerializeField] private List<Vector3> dirs;
 
     public int Score_Count(Vector3 upside)
     {
