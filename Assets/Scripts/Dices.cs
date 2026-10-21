@@ -11,7 +11,7 @@ public class Dices : MonoBehaviour
     [SerializeField] private GameObject spawner;
 
     //setup for dices
-    [SerializeField] private GameObject dicePrefab;
+    [SerializeField] private Score dicePrefab;
 
     //Force control
     [SerializeField,Header("Min|Max Torque")] private Vector2 torque = new Vector2(-200f,200f);
@@ -54,12 +54,10 @@ public class Dices : MonoBehaviour
         if(newDices>0)
         {
             Vector3 spawnAngle = new Vector3(0,360/newDices,0);
-            GameObject newobject;
             for(int i=0; i<newDices; i++)
             {
                 spawner.transform.localEulerAngles = spawnAngle*i;
-                newobject = Instantiate(dicePrefab.gameObject, spawner.transform.forward*5, Quaternion.identity, transform);
-                childrenList.Add(newobject.GetComponent<Score>());
+                childrenList.Add(Instantiate(dicePrefab.gameObject, spawner.transform.forward*5, Quaternion.identity, transform));
             }
         }   
         else if(newDices<0)
