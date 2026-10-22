@@ -22,24 +22,29 @@ public class Dices : MonoBehaviour
 
     private void Awake()
     {
-        if(database != null)
-        {
-            database.diceThrowEvent += Throw;
-
-            database.diceThrowEndEvent += GameResult;
-        }
-        else
-            Debug.LogError("Ссылка на Database не найдена!");
-
         if(dicePrefab != null && spawner != null)
             SummonCube();
         else
             Debug.LogError("Ошибка префаб или спавнер не найден!");
     }
 
-    private void OnDestroy()
+    private void OnEnable()
     {
+        if(database = null)
+            return
+        database.diceThrowEvent += Throw;
+        database.diceThrowEndEvent += GameResult;
+    }
+
+    private void OnDisable()
+    {
+        if(database = null)
+        {
+            Debug.LogError("Ссылка на Database не найдена!");
+            return
+        }
         database.diceThrowEvent -= Throw;
+        database.diceThrowEndEvent -= GameResult;
     }
 
     private void Throw()
