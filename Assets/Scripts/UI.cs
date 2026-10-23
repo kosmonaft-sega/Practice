@@ -21,21 +21,7 @@ public class UI : MonoBehaviour
     [SerializeField] private Toggle winToggle;
     [SerializeField] private Toggle drawToggle;
 
-    private void AddToEvent()
-    {
-        if(database != null)
-        {
-            database.diceThrowEvent += EraseWinStatus;
-            database.diceThrowEvent += WinScoreChange;
-            database.diceThrowEvent += DrawScoreChange;
-            database.diceThrowEvent += LoseScoreChange;
-
-            database.diceThrowEndEvent += SetScore;
-        }
-    }
-
     private void Awake() {
-        AddToEvent();
         if(scoreboard == null)
             Debug.LogError("Ошибка ссылка на scoreboard не найдена");
 
@@ -62,8 +48,21 @@ public class UI : MonoBehaviour
         else
             Debug.LogError("Ошибка throwButton не найдена!");
     }
+    
+    private void OnEnable()
+    {
+        if(database != null)
+        {
+            database.diceThrowEvent += EraseWinStatus;
+            database.diceThrowEvent += WinScoreChange;
+            database.diceThrowEvent += DrawScoreChange;
+            database.diceThrowEvent += LoseScoreChange;
 
-    private void OnDestroy()
+            database.diceThrowEndEvent += SetScore;
+        }
+    }
+
+    private void OnDisable()
     {
         if(database != null)
         {
