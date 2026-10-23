@@ -11,14 +11,14 @@ public class Dices : MonoBehaviour
     [SerializeField] private GameObject spawner;
 
     //setup for dices
-    [SerializeField] private Score dicePrefab;
+    [SerializeField] private OneDiceScore dicePrefab;
 
     //Force control
     [SerializeField,Header("Min|Max Torque")] private Vector2 torque = new Vector2(-200f,200f);
     [SerializeField,Header("Min|Max Up Force|Side force absolutes")] private Vector3 forces = new Vector3(200f,500f,200f);
 
     //List of dice objects
-    private List<Score> childrenList = new List<Score>();
+    private List<OneDiceScore> childrenList = new List<OneDiceScore>();
 
     private void Awake()
     {
