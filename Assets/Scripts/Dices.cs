@@ -70,7 +70,7 @@ public class Dices : MonoBehaviour
         }   
         else if(newDices<0)
         {
-            Score newobject;
+            OneDiceScore newobject;
             for(int i=0; i<-newDices; i++)
             {
                 newobject = childrenList[dicesCount-i-1];
@@ -91,7 +91,7 @@ public class Dices : MonoBehaviour
 
         yield return new WaitForSeconds(0.25f);
 
-        foreach(Score dice in childrenList)
+        foreach(OneDiceScore dice in childrenList)
         {
             dice.rd.AddForce(new Vector3(
                 UnityEngine.Random.Range(-forces.z, forces.z),
@@ -111,7 +111,7 @@ public class Dices : MonoBehaviour
         while (database.isThrown)
         {
             database.score = 0;
-            foreach(Score dice in childrenList)
+            foreach(OneDiceScore dice in childrenList)
             {
                 if (dice.rd.linearVelocity.sqrMagnitude > 0.01f || dice.rd.angularVelocity.sqrMagnitude > 0.01f)
                 {
