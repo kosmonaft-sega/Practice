@@ -22,26 +22,29 @@ public class Dices : MonoBehaviour
 
     private void Awake()
     {
-        if(dicePrefab != null && spawner != null)
+        if(dicePrefab != null && spawner != null && database != null)
             SummonCube();
         else
-            Debug.LogError("Ошибка префаб или спавнер не найден!");
+            Debug.LogError("Ошибка префаб или спавнер или датабаза не найден!");
     }
 
     private void OnEnable()
     {
-        if(database = null)
-            return
+        if(database == null)
+        {
+            Debug.LogError("Ссылка на Database не найдена!");
+            return;
+        }
         database.diceThrowEvent += Throw;
         database.diceThrowEndEvent += GameResult;
     }
 
     private void OnDisable()
     {
-        if(database = null)
+        if(database == null)
         {
             Debug.LogError("Ссылка на Database не найдена!");
-            return
+            return;
         }
         database.diceThrowEvent -= Throw;
         database.diceThrowEndEvent -= GameResult;
@@ -62,13 +65,13 @@ public class Dices : MonoBehaviour
             for(int i=0; i<newDices; i++)
             {
                 spawner.transform.localEulerAngles = spawnAngle*i;
-                childrenList.Add(Instantiate(dicePrefab.gameObject, spawner.transform.forward*5, Quaternion.identity, transform));
+                childrenList.Add(Instantiate(dicePrefab, spawner.transform.forward*5, Quaternion.identity, transform));
             }
         }   
         else if(newDices<0)
         {
             Score newobject;
-            for(int i=0; i<Math.Abs(newDices); i++)
+            for(int i=0; i<-newDices; i++)
             {
                 newobject = childrenList[dicesCount-i-1];
                 childrenList.Remove(newobject);
@@ -103,20 +106,22 @@ public class Dices : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        int notMovingCubes;
+        var isCubesStoped = false;
 
         while (database.isThrown)
         {
-            notMovingCubes = 0;
             database.score = 0;
             foreach(Score dice in childrenList)
             {
-                if (dice.rd.linearVelocity.sqrMagnitude > 0.01f && dice.rd.angularVelocity.sqrMagnitude > 0.01f)
+                if (dice.rd.linearVelocity.sqrMagnitude > 0.01f || dice.rd.angularVelocity.sqrMagnitude > 0.01f)
+                {
+                    isCubesStoped = false;
                     break;
-                notMovingCubes++;
+                }
+                isCubesStoped = true;
                 database.score += dice.Score_Count(dice.transform.InverseTransformDirection(Vector3.up));
             }
-            if (notMovingCubes == childrenList.Count)
+            if (isCubesStoped)
                 database.DiceThrowEnd();
 
             yield return new WaitForSeconds(0.05f);
